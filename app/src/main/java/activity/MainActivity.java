@@ -1,7 +1,7 @@
 package activity;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,45 +26,37 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-    private String fontPath;
-
-    /* BEGIN GETTERS AND SETTERS */
-    private String getFontPath() {
-        return fontPath;
-    }
-
-    private void setFontPath(String fontPath) {
-        this.fontPath = fontPath;
-    }
 
     /* END GETTERS AND SETTERS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setFontPath("fonts/brandonlight.TTF");
+
         TextView createAccount = (TextView) findViewById(R.id.link_signup);
         Button login = (Button) findViewById(R.id.btn_login);
-        changeFont(createAccount);
-        changeFont(login);
 
         // If user decides to create an account, change view
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount();
-                // Send data to the server
+                createAccount(); // Begin talking to the server
             }
         });
         // If the user decides to log in
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Talk to the server here
+                userLogin();
             }
         });
+    }
 
-        /* SET UP Toolbar After the user signs in
+    /**
+     * This method verifies the users input and if they are correct launches the home menu.
+     */
+    private void userLogin() {
+        setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -74,9 +66,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
-        */
     }
 
+    /**
+     * This method waits for the user to to type in their information then creates an account and stores it to my
+     * database.
+     */
     private void createAccount() {
         setContentView(R.layout.activity_sign_up);
         /* Prepare data */
@@ -92,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 final String firstname = etFirstname.getText().toString();
                 final String email = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
-                // startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
                 // Verifies if the user login input is correct with the database I created
                 // If the input log in successfully it allows the user to go to the next activity,
@@ -117,10 +111,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
                 // The next 3 lines calls the @see RegisterRequest class.
                 RegisterRequest registerRequest = new RegisterRequest(firstname, email, password, responseListener);
-
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(registerRequest);
-
             }
         });
     }
@@ -151,16 +143,5 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onDrawerItemSelected(View view, int position) {
 
-    }
-
-    /**
-     * Changes the font of the activity
-     *
-     * @param context  Is the
-     * @param textView the view we want to change font to
-     */
-    private void changeFont(TextView textView) {
-        Typeface typeface = Typeface.createFromAsset(getAssets(), getFontPath());
-        textView.setTypeface(typeface);
     }
 }

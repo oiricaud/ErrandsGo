@@ -17,18 +17,16 @@ import java.util.Map;
 public class RegisterRequest extends StringRequest {
 
     // This line connects to my domain. Please @see Register class for more details
-    private static final String REGISTER_REQUEST_URL = "http://www.narped.com/Register.php";
+    private static final String REGISTER_REQUEST_URL = "http://www.narped.com/errandsgo/Register.php";
     private Map<String, String> params;
 
     /**
      * This method sends a POST request to the database.
      *
-     * @param firstname The user first name of the user. .
      * @param listener  The listener listens to the responses from the user.
      */
 
-    public RegisterRequest(String firstname, String email, String password,
-                           Response.Listener<String> listener) {
+    public RegisterRequest(String firstname, String email, String password, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("firstname", firstname);

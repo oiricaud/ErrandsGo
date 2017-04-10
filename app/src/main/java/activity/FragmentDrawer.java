@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * Created by oscarricaud on 4/10/17.
  */
 public class FragmentDrawer extends Fragment {
