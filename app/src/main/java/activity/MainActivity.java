@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import cs4330.utep.edu.errandsgo.R;
 
@@ -37,13 +38,25 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         setContentView(R.layout.activity_login);
         setFontPath("fonts/brandonlight.TTF");
         TextView createAccount = (TextView) findViewById(R.id.link_signup);
+        Button login = (Button) findViewById(R.id.btn_login);
+        changeFont(createAccount);
+        changeFont(login);
+
+        // If user decides to create an account, change view
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.activity_sign_up);
+                // Send data to the server
             }
         });
-        //    changeFont(errandsGo);
+        // If the user decides to log in
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Talk to the server here
+            }
+        });
 
         /* SET UP Toolbar After the user signs in
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
