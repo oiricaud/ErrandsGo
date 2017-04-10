@@ -36,7 +36,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setFontPath("fonts/brandonlight.TTF");
-        TextView errandsGo = (TextView) findViewById(R.id.ErrandsGo);
+        TextView createAccount = (TextView) findViewById(R.id.link_signup);
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.activity_sign_up);
+            }
+        });
         //    changeFont(errandsGo);
 
         /* SET UP Toolbar After the user signs in
