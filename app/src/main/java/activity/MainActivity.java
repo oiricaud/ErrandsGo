@@ -1,16 +1,22 @@
 package activity;
 
-
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import cs4330.utep.edu.errandsgo.R;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_sign_up);
+                createAccount();
                 // Send data to the server
             }
         });
@@ -69,6 +75,54 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
         */
+    }
+
+    private void createAccount() {
+        setContentView(R.layout.activity_sign_up);
+        /* Prepare data */
+        final EditText etFirstname = (EditText) findViewById(R.id.input_name);
+        final EditText etEmail = (EditText) findViewById(R.id.input_email);
+        final EditText etPassword = (EditText) findViewById(R.id.input_password);
+        final Button btn_signup = (Button) findViewById(R.id.btn_signup);
+
+        // User presses the create account button
+        btn_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String firstname = etFirstname.getText().toString();
+                final String email = etEmail.getText().toString();
+                final String password = etPassword.getText().toString();
+                // startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
+                // Verifies if the user login input is correct with the database I created
+                // If the input log in successfully it allows the user to go to the next activity,
+                // @see HomeActivity and this is where the user can select classes it wants to register for
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            if (success) {
+                                setContentView(R.layout.activity_login);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setMessage("Register Failed").setNegativeButton("Retry", null).create().show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                // The next 3 lines calls the @see RegisterRequest class.
+                RegisterRequest registerRequest = new RegisterRequest(firstname, email, password, responseListener);
+
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(registerRequest);
+
+            }
+        });
     }
 
 
