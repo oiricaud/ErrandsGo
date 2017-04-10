@@ -17,7 +17,8 @@
                 android:layout_marginBottom="24dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/errandsgo"
-                android:id="@+id/ErrandsGo" android:textSize="36sp" android:textColor="@color/accent"/>
+                android:id="@+id/ErrandsGo" android:fontFamily="cursive" android:textSize="42sp"
+                android:textColor="@color/accent"/>
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
