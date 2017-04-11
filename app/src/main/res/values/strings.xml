@@ -8,13 +8,13 @@
 
     <string name="nav_item_home">Home</string>
     <string name="nav_item_errands">Errands</string>
-    <string name="nav_item_login">Log on</string>
+    <string name="nav_item_logout">Log out</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
         <item>@string/nav_item_errands</item>
-        <item>@string/nav_item_login</item>
+        <item>@string/nav_item_logout</item>
     </string-array>
 
     <string name="title_messages">Messages</string>
