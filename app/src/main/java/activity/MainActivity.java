@@ -1,6 +1,7 @@
 package activity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(); // Begin talking to the server
+                createAccount();
             }
         });
         // If the user decides to log in
@@ -56,6 +58,37 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
      * This method verifies the users input and if they are correct launches the home menu.
      */
     private void userLogin() {
+        final EditText etUsername = (EditText) findViewById(R.id.input_email);
+        final EditText etPassword = (EditText) findViewById(R.id.input_password);
+        final String email = etUsername.getText().toString();
+        final String password = etPassword.getText().toString();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        toast("Success logon!");
+                        launchHomeView();
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        toast("Failed, please try again");
+                        builder.setMessage("Login Failed").setNegativeButton("Retry", null).create().show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(loginRequest);
+    }
+
+    private void launchHomeView() {
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -74,13 +107,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
      */
     private void createAccount() {
         setContentView(R.layout.activity_sign_up);
-        /* Prepare data */
+          /* Prepare data */
         final EditText etFirstname = (EditText) findViewById(R.id.input_name);
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
         final EditText etPassword = (EditText) findViewById(R.id.input_password);
         final Button btn_signup = (Button) findViewById(R.id.btn_signup);
 
-        // User presses the create account button
+        // User presses the "No account yet? Create one"
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,9 +121,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 final String email = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
 
-                // Verifies if the user login input is correct with the database I created
-                // If the input log in successfully it allows the user to go to the next activity,
-                // @see HomeActivity and this is where the user can select classes it wants to register for
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -98,9 +128,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                setContentView(R.layout.activity_login);
+                                toast("Success creating account");
+                                //userLogin(etEmail, etPassword);
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                toast("Failed, please try again");
                                 builder.setMessage("Register Failed").setNegativeButton("Retry", null).create().show();
                             }
                         } catch (JSONException e) {
@@ -143,5 +175,22 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onDrawerItemSelected(View view, int position) {
 
+    }
+
+    /**
+     * Show a toast message.
+     */
+    private void toast(String msg) {
+        final Toast toast = Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT);
+        toast.show();
+        new CountDownTimer(500, 10000) {
+            public void onTick(long millisUntilFinished) {
+                toast.show();
+            }
+
+            public void onFinish() {
+                toast.cancel();
+            }
+        }.start();
     }
 }
