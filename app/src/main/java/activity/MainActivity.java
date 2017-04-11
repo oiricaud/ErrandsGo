@@ -1,5 +1,6 @@
 package activity;
 
+import adapter.ImageAdapter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.widget.DrawerLayout;
@@ -9,10 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -20,16 +18,43 @@ import cs4330.utep.edu.errandsgo.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+
 /**
  *
  * Created by oscarricaud on 4/10/17.
  */
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
+    List<String> list;
+    int[] imageId = {
+            R.drawable.ic_action_baby,
+            R.drawable.ic_action_carride,
+            R.drawable.ic_action_carwash,
+            R.drawable.ic_action_clean,
+            R.drawable.ic_action_food,
+            R.drawable.ic_action_laundry,
+            R.drawable.ic_action_name,
+            R.drawable.ic_action_pets,
+            R.drawable.ic_action_yard,
+            R.drawable.ic_action_other,
+    };
+    String[] imageTitle = {
+            "Baby sit",
+            "Car Ride",
+            "Car Wash",
+            "Housekeeping",
+            "Take Out",
+            "Laundry",
+            "Groceries",
+            "Walk pet",
+            "Yard Services",
+            "Other",
+    };
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
-    /* END GETTERS AND SETTERS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private void launchHomeView() {
         setContentView(R.layout.activity_main);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -99,6 +125,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
+        /* Grid Images Listener */
+        ImageAdapter adapter = new ImageAdapter(MainActivity.this, imageTitle, imageId);
+        GridView grid = (GridView) findViewById(R.id.grid_view);
+        grid.setAdapter(adapter);
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+            }
+        });
     }
 
     /**

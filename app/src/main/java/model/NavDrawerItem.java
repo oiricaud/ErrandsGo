@@ -1,6 +1,7 @@
 package model;
 
 /**
+ *
  * Created by oscarricaud on 4/10/17.
  */
 public class NavDrawerItem {
