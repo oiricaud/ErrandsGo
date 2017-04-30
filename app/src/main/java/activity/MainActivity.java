@@ -53,6 +53,20 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "Yard Services",
             "Other",
     };
+    String[] imageDetails = {
+            "Are you often busy at times with work or school? You can hire a Baby sitter but that takes too much time" +
+                    ". Why not use one of ErrandsGo services and get one of the ErrandRunners to take care of your " +
+                    "loved one. You can view their ratings and pictures of the ErrandRunner! ",
+            "Car Ride",
+            "Car Wash",
+            "Housekeeping",
+            "Take Out",
+            "Laundry",
+            "Groceries",
+            "Walk pet",
+            "Yard Services",
+            "Other",
+    };
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
@@ -116,10 +130,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private void launchHomeView() {
         setContentView(R.layout.activity_main);
-        final LinearLayout popUpBackground = (LinearLayout) findViewById(R.id.popupwithbackground);
+        final RelativeLayout popUpBackground = (RelativeLayout) findViewById(R.id.popupwithbackground);
         final RelativeLayout popUpBorder = (RelativeLayout) findViewById(R.id.popupblackborder);
         final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
+        final TextView details = (TextView) findViewById(R.id.details);
         popUpBackground.setVisibility(RelativeLayout.GONE);
         popUpBorder.setVisibility(RelativeLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -143,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 popUpBackground.setVisibility(RelativeLayout.VISIBLE);
                 popUpBorder.setVisibility(RelativeLayout.VISIBLE);
                 titleClicked.setText(imageTitle[position]);
-
+                details.setText(imageDetails[position]);
             }
         });
         closePopUp.setOnClickListener(new View.OnClickListener() {
