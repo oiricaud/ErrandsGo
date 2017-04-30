@@ -3,6 +3,7 @@ package activity;
 import adapter.ImageAdapter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     /**
-     * This method verifies the users input and if they are correct launches the home menu.
+     * This method verifies the users credentials and if they are correct, it launches the home menu.
      */
     private void userLogin() {
         final EditText etUsername = (EditText) findViewById(R.id.input_email);
@@ -115,17 +116,22 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private void launchHomeView() {
         setContentView(R.layout.activity_main);
-
+        final LinearLayout popUpBackground = (LinearLayout) findViewById(R.id.popupwithbackground);
+        final RelativeLayout popUpBorder = (RelativeLayout) findViewById(R.id.popupblackborder);
+        final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
+        final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
+        popUpBackground.setVisibility(RelativeLayout.GONE);
+        popUpBorder.setVisibility(RelativeLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+        mToolbar.setTitle("Choose an errand.");
         /* Grid Images Listener */
         ImageAdapter adapter = new ImageAdapter(MainActivity.this, imageTitle, imageId);
         GridView grid = (GridView) findViewById(R.id.grid_view);
@@ -133,8 +139,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                popUpBackground.setVisibility(RelativeLayout.VISIBLE);
+                popUpBorder.setVisibility(RelativeLayout.VISIBLE);
+                titleClicked.setText(imageTitle[position]);
+
+            }
+        });
+        closePopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpBackground.setVisibility(RelativeLayout.INVISIBLE);
+                popUpBorder.setVisibility(RelativeLayout.INVISIBLE);
             }
         });
     }

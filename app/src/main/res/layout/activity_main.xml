@@ -44,6 +44,35 @@
     </LinearLayout>
 
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:background="@drawable/blurrymountains"
+            android:id="@+id/popupwithbackground">
+        <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" android:background="@drawable/background_border"
+                android:layout_marginTop="60dp" android:id="@+id/popupblackborder" android:layout_marginBottom="20dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:ems="10"
+                    android:id="@+id/titleClicked" android:gravity="center"
+                    android:layout_marginTop="52dp"
+                    android:textSize="18sp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+                    android:textColor="@color/material_drawer_dark_background"/>
+            <android.support.design.widget.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:fabSize="mini" app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                    android:id="@+id/closePopup"
+                    android:layout_alignParentTop="true" android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </LinearLayout>
     <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="activity.FragmentDrawer"
