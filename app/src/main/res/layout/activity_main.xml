@@ -17,9 +17,11 @@
                 android:orientation="vertical">
 
             <include
+                    android:scrollbars="none"
                     android:id="@+id/toolbar"
                     layout="@layout/toolbar" android:fontFamily="cursive"/>
             <GridView
+                    android:scrollbars="none"
                     android:id="@+id/grid_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -51,13 +53,14 @@
             android:layout_height="match_parent" android:background="@drawable/blurrymountains"
             android:id="@+id/popupwithbackground">
         <android.support.design.widget.FloatingActionButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 app:fabSize="mini" app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
                 android:id="@+id/closePopup"
                 android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
-                android:layout_marginTop="50dp" android:layout_marginRight="10dp"/>
+                android:layout_marginTop="50dp" android:layout_marginRight="10dp"
+                app:backgroundTint="@android:color/holo_red_light"/>
         <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -80,13 +83,14 @@
                     android:layout_marginTop="120dp" android:id="@+id/details"
                     android:layout_alignStart="@+id/titleClicked" android:layout_alignEnd="@+id/titleClicked"
                     android:layout_marginBottom="150dp" android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp" android:textSize="14sp" android:fontFamily="sans-serif"/>
             <Button
                     android:text="Confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_alignParentBottom="true"
                     android:layout_alignEnd="@+id/details" android:layout_marginBottom="41dp" android:id="@+id/confirm"
-                    android:backgroundTint="@color/colorPrimaryDark"/>
+                    android:backgroundTint="@color/md_deep_purple_400"
+                    android:textColor="@color/material_drawer_background"/>
         </RelativeLayout>
     </RelativeLayout>
     <fragment
