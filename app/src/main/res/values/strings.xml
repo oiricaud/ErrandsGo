@@ -7,7 +7,7 @@
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_errands">Errands</string>
+    <string name="nav_item_errands">Do Errands</string>
     <string name="nav_item_logout">Log out</string>
 
     <!-- navigation drawer item labels  -->

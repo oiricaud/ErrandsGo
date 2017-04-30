@@ -30,15 +30,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     List<String> list;
     int[] imageId = {
-            R.drawable.ic_action_baby,
-            R.drawable.ic_action_carride,
-            R.drawable.ic_action_carwash,
-            R.drawable.ic_action_clean,
-            R.drawable.ic_action_food,
-            R.drawable.ic_action_laundry,
-            R.drawable.ic_action_name,
-            R.drawable.ic_action_pets,
-            R.drawable.ic_action_yard,
+            R.drawable.ic_stroller,
+            R.drawable.ic_car,
+            R.drawable.ic_carwash,
+            R.drawable.ic_house_clean,
+            R.drawable.ic_food_delivery,
+            R.drawable.ic_laundry,
+            R.drawable.ic_groceries,
+            R.drawable.ic_pet,
+            R.drawable.ic_fence,
     };
     String[] imageTitle = {
             "Baby sit",
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-        mToolbar.setTitle("Choose an errand.");
+        mToolbar.setTitle("Pick an errand");
         /* Grid Images Listener */
         ImageAdapter adapter = new ImageAdapter(MainActivity.this, imageTitle, imageId);
         final GridView grid = (GridView) findViewById(R.id.grid_view);
@@ -235,10 +235,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
