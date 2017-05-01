@@ -62,10 +62,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "Why clean your home when you can get someone else to do it for you. Spend your time on changing this " +
                     "world instead.",
             "Are you tired after a long day of work? Why drive to get food restaurant when food can come to you",
-            "Laundry",
-            "Groceries",
-            "Walk pet",
-            "Yard Services",
+            "Get someone to pick up your laundry from your home, work or wherever you are at and get it done for a " +
+                    "couple of dollars!",
+            "If you think about it, you eat the same foods so why waste time in line at a groceries store when you " +
+                    "can have someone else complete your grocery list.",
+            "You work over 40 hours a week and you come home to a pet that has been in a cage all day but you're " +
+                    "tired, get someone else to walk your pet for you!",
+            "The city keeps sending you notices that you gotta clean your yard, but you're busy too work. You are a " +
+                    "tap away from getting someone else do it for you!",
     };
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
         final TextView details = (TextView) findViewById(R.id.details);
+        final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
         popUpBackground.setVisibility(RelativeLayout.GONE);
         popUpBorder.setVisibility(RelativeLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -160,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 grid.setVisibility(GridView.INVISIBLE);
                 titleClicked.setText(imageTitle[position]);
                 details.setText(imageDetails[position]);
+                imageIcon.setBackgroundResource(imageId[position]);
             }
         });
         closePopUp.setOnClickListener(new View.OnClickListener() {
