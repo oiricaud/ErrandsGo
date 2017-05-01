@@ -1,6 +1,7 @@
 package activity;
 
 import adapter.ImageAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 titleClicked.setText(imageTitle[position]);
                 details.setText(imageDetails[position]);
                 imageIcon.setBackgroundResource(imageId[position]);
+                imageIcon.bringToFront();
             }
         });
         closePopUp.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +192,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
         final EditText etPassword = (EditText) findViewById(R.id.input_password);
         final Button btn_signup = (Button) findViewById(R.id.btn_signup);
+        final TextView link_login = (TextView) findViewById(R.id.link_login);
+
+        link_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchHomeView();
+            }
+        });
 
         // User presses the "No account yet? Create one"
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
                                 toast("Success creating account");
-                                //userLogin(etEmail, etPassword);
+                                restartActivity();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                 toast("Failed, please try again");
@@ -225,6 +235,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 queue.add(registerRequest);
             }
         });
+    }
+
+    private void restartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
 

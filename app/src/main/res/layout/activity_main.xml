@@ -45,7 +45,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:background="@drawable/blurrymountains"
-            android:id="@+id/popupwithbackground">
+            android:id="@+id/popupwithbackground" android:layout_marginTop="50dp">
         <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,19 +53,20 @@
                 app:fabSize="mini" app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
                 android:id="@+id/closePopup"
                 android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
-                android:layout_marginTop="50dp" android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp" android:layout_marginRight="10dp"
                 app:backgroundTint="@android:color/holo_red_light"/>
-        <ImageView
-                android:id="@+id/imageIcon"
-                android:layout_alignParentLeft="false"
-                android:layout_marginLeft="30dp" android:layout_marginTop="100dp"
-                android:layout_width="75dp" android:layout_height="75dp"/>
+
         <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" android:background="@drawable/background_border"
-                android:layout_marginTop="60dp" android:id="@+id/popupblackborder" android:layout_marginBottom="20dp">
+                android:layout_marginTop="10dp" android:id="@+id/popupblackborder" android:layout_marginBottom="20dp">
+            <ImageView
+                    android:id="@+id/imageIcon"
+                    android:layout_alignParentLeft="false"
+                    android:layout_marginLeft="200dp" android:layout_marginTop="300dp"
+                    android:layout_width="75dp" android:layout_height="75dp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,11 +81,12 @@
                     android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:layout_below="@+id/closePopup"
-                    android:layout_marginTop="150dp" android:id="@+id/details"
+                    android:layout_marginTop="110dp" android:id="@+id/details"
                     android:layout_alignStart="@+id/titleClicked" android:layout_alignEnd="@+id/titleClicked"
-                    android:layout_marginBottom="100dp" android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" android:textSize="14sp" android:fontFamily="sans-serif"
-                    android:textAlignment="center" android:textColor="@color/material_drawer_primary_text"/>
+                    android:layout_marginBottom="200dp" android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" android:textSize="16sp" android:fontFamily="sans-serif"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/material_drawer_dark_selected"/>
             <Button
                     android:text="Confirm"
                     android:layout_width="wrap_content"
