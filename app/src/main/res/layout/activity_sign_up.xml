@@ -58,7 +58,7 @@
             <EditText android:id="@+id/phone_number"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:hint="Phone Number" android:inputType="phone"/>
+                      android:hint="Phone Number" android:inputType="textCapWords"/>
         </android.support.design.widget.TextInputLayout>
 
         <!--  Street Label -->
@@ -70,7 +70,7 @@
             <EditText android:id="@+id/street"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:hint="Address" android:inputType="textPostalAddress"/>
+                      android:hint="Address" android:inputType="textCapWords"/>
         </android.support.design.widget.TextInputLayout>
 
         <!--  City Label -->
@@ -82,7 +82,7 @@
             <EditText android:id="@+id/city"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:hint="City" android:inputType="textPostalAddress"/>
+                      android:hint="City" android:inputType="textCapWords"/>
         </android.support.design.widget.TextInputLayout>
 
         <!--  State Label -->
@@ -94,7 +94,7 @@
             <EditText android:id="@+id/state"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:hint="State" android:inputType="textPostalAddress"/>
+                      android:hint="State" android:inputType="textCapWords"/>
         </android.support.design.widget.TextInputLayout>
 
         <!--  ZipCode Label -->
@@ -106,7 +106,7 @@
             <EditText android:id="@+id/zip_code"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:hint="Zip Code" android:inputType="number"/>
+                      android:hint="Zip Code" android:inputType="textCapWords"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->
@@ -118,8 +118,7 @@
             <EditText android:id="@+id/input_email"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:inputType="textEmailAddress"
-                      android:hint="Email"/>
+                      android:hint="Email" android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -131,8 +130,7 @@
             <EditText android:id="@+id/input_password"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:inputType="textPassword"
-                      android:hint="Password"/>
+                      android:hint="Password" android:inputType="textPassword"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
