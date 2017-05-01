@@ -65,7 +65,7 @@
             <ImageView
                     android:id="@+id/imageIcon"
                     android:layout_alignParentLeft="false"
-                    android:layout_marginLeft="200dp" android:layout_marginTop="300dp"
+                    android:layout_marginLeft="50dp" android:layout_marginTop="300dp"
                     android:layout_width="75dp" android:layout_height="75dp"/>
             <TextView
                     android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                     android:layout_height="match_parent" android:layout_below="@+id/closePopup"
                     android:layout_marginTop="110dp" android:id="@+id/details"
                     android:layout_alignStart="@+id/titleClicked" android:layout_alignEnd="@+id/titleClicked"
-                    android:layout_marginBottom="200dp" android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="170dp" android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp" android:textSize="16sp" android:fontFamily="sans-serif"
                     android:textAlignment="viewStart"
                     android:textColor="@color/material_drawer_dark_selected"/>
