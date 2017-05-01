@@ -79,7 +79,6 @@ public class FragmentDrawer extends Fragment {
                 if (position == 2) {
                     Log.w("Log out ", "logging out");
                     new Handler().post(new Runnable() {
-
                         @Override
                         public void run() {
                             Intent intent = getActivity().getIntent();
@@ -91,6 +90,7 @@ public class FragmentDrawer extends Fragment {
                             startActivity(intent);
                         }
                     });
+
                 }
                 mDrawerLayout.closeDrawer(containerView);
             }
@@ -103,7 +103,6 @@ public class FragmentDrawer extends Fragment {
 
         return layout;
     }
-
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);

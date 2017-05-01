@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
+                    if (success && (!isEmpty(etUsername) || !isEmpty(etPassword))) {
                         toast("Success logon!");
                         launchHomeView();
                     } else {
@@ -126,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 }
             }
         };
-
         LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(loginRequest);
+
     }
 
     private void launchHomeView() {
@@ -266,5 +266,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 toast.cancel();
             }
         }.start();
+    }
+
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() <= 0;
     }
 }
