@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setDrawerListener(this);
 
         mToolbar.setTitle("Pick an errand");
+
         /* Grid Images Listener */
         ImageAdapter adapter = new ImageAdapter(MainActivity.this, imageTitle, imageId);
         final GridView grid = (GridView) findViewById(R.id.grid_view);
