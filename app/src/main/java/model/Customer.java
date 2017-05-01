@@ -13,7 +13,9 @@ public class Customer {
     private String street;
     private String city;
     private String state;
+    private String zip;
     private String email;
+    private String password;
 
     public Customer(JSONObject jsonResponse) throws JSONException {
         this.firstName = jsonResponse.get("firstname").toString();
@@ -22,7 +24,9 @@ public class Customer {
         this.street = jsonResponse.get("street").toString();
         this.city = jsonResponse.get("city").toString();
         this.state = jsonResponse.get("state").toString();
+        this.zip = jsonResponse.get("zipcode").toString();
         this.email = jsonResponse.get("email").toString();
+        this.password = jsonResponse.get("password").toString();
     }
 
     public String getFirstName() {
@@ -52,5 +56,13 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getZip() {
+        return zip;
     }
 }

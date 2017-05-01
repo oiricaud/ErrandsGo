@@ -105,9 +105,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
      * This method verifies the users credentials and if they are correct, it launches the home menu.
      */
     private void userLogin() {
-        final EditText etUsername = (EditText) findViewById(R.id.input_email);
+        final EditText etEmail = (EditText) findViewById(R.id.input_email);
         final EditText etPassword = (EditText) findViewById(R.id.input_password);
-        final String email = etUsername.getText().toString();
+        final String email = etEmail.getText().toString();
         final String password = etPassword.getText().toString();
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -115,10 +115,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-
-                    Log.w("jsonresponse ", String.valueOf(jsonResponse));
+                    Log.w("jsonResponse", jsonResponse.toString());
                     boolean success = jsonResponse.getBoolean("success");
-                    if (success && (!isEmpty(etUsername) || !isEmpty(etPassword))) {
+                    if (success && (!isEmpty(etEmail) || !isEmpty(etPassword))) {
                         customer = new Customer(jsonResponse); // load customer before launching the home view
                         toast("Success logon!");
                         launchHomeView();
@@ -224,16 +223,16 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 final String street = etStreet.getText().toString();
                 final String city = etCity.getText().toString();
                 final String state = etState.getText().toString();
-                final String zipCode = etZipCode.getText().toString();
+                final String zipcode = etZipCode.getText().toString();
                 final String email = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String responsee) {
+                    public void onResponse(String response) {
                         try {
-                            JSONObject jsonResponsee = new JSONObject(responsee);
-                            boolean success = jsonResponsee.getBoolean("success");
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
                             if (success) {
                                 toast("Success creating account");
                                 restartActivity();
@@ -250,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
                 // The next 3 lines calls the @see RegisterRequest class.
                 RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, phonenumber, street, city, state,
-                        zipCode, email, password, responseListener);
+                        zipcode, email, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(registerRequest);
             }

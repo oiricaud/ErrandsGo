@@ -45,7 +45,7 @@ public class RegisterRequest extends StringRequest {
         params.put("street", street);
         params.put("city", city);
         params.put("state", state);
-        params.put("zipCode", zipCode);
+        params.put("zipcode", zipCode);
         params.put("email", email);
         params.put("password", password);
     }
