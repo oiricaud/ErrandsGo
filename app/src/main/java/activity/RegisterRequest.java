@@ -23,10 +23,19 @@ public class RegisterRequest extends StringRequest {
      * @param listener  The listener listens to the responses from the user.
      */
 
-    public RegisterRequest(String firstname, String email, String password, Response.Listener<String> listener) {
+    public RegisterRequest(String firstname, String lastname, String phonenumber, String street,
+                           String city, String state, String zipCode, String email, String password,
+                           Response.Listener<String> listener) {
+
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("firstname", firstname);
+        params.put("lastname", lastname);
+        params.put("phonenumber", phonenumber);
+        params.put("street", street);
+        params.put("city", city);
+        params.put("state", state);
+        params.put("zipCode", zipCode);
         params.put("email", email);
         params.put("password", password);
     }

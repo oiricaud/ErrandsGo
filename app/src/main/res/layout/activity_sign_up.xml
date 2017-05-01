@@ -23,17 +23,90 @@
                 android:id="@+id/ErrandsGo" android:fontFamily="cursive" android:textSize="42sp"
                 android:textColor="@color/accent"/>
 
-        <!--  Name Label -->
+        <!--  First Name Label -->
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_name"
+            <EditText android:id="@+id/first_name"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:inputType="textCapWords"
-                      android:hint="Name"/>
+                      android:hint="First Name"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Last Name Label -->
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/last_name"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:inputType="textCapWords"
+                      android:hint="Last Name"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Phone Number  Label -->
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/phone_number"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Phone Number" android:inputType="phone"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Street Label -->
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/street"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Address" android:inputType="textPostalAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  City Label -->
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/city"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="City" android:inputType="textPostalAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  State Label -->
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/state"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="State" android:inputType="textPostalAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  ZipCode Label -->
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/zip_code"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Zip Code" android:inputType="number"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->

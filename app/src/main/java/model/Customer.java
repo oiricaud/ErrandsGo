@@ -9,17 +9,20 @@ import org.json.JSONObject;
 public class Customer {
     private String firstName;
     private String lastName;
-    private String phoneNumber;
-    private String homeAddress;
-    private String creditCard;
-    private String imagePath;
+    private String phonenumber;
+    private String street;
+    private String city;
+    private String state;
+    private String email;
 
     public Customer(JSONObject jsonResponse) throws JSONException {
         this.firstName = jsonResponse.get("firstname").toString();
         this.lastName = jsonResponse.get("lastname").toString();
-        this.phoneNumber = jsonResponse.get("phonenumber").toString();
-        this.homeAddress = jsonResponse.get("homeaddress").toString();
-        this.creditCard = jsonResponse.get("creditcard").toString();
+        this.phonenumber = jsonResponse.get("phonenumber").toString();
+        this.street = jsonResponse.get("street").toString();
+        this.city = jsonResponse.get("city").toString();
+        this.state = jsonResponse.get("state").toString();
+        this.email = jsonResponse.get("email").toString();
     }
 
     public String getFirstName() {
@@ -30,23 +33,24 @@ public class Customer {
         return lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public String getStreet() {
+        return street;
     }
 
-    public String getHomeAddress() {
-        return homeAddress;
+    public String getCity() {
+        return city;
     }
 
-    public String getCreditCard() {
-        return creditCard;
+    public String getState() {
+        return state;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getEmail() {
+        return email;
     }
 }

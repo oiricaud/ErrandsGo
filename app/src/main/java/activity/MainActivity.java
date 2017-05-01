@@ -195,7 +195,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private void createAccount() {
         setContentView(R.layout.activity_sign_up);
           /* Prepare data */
-        final EditText etFirstname = (EditText) findViewById(R.id.input_name);
+        final EditText etFirstname = (EditText) findViewById(R.id.first_name);
+        final EditText etLastName = (EditText) findViewById(R.id.last_name);
+        final EditText etPhone_number = (EditText) findViewById(R.id.phone_number);
+        final EditText etStreet = (EditText) findViewById(R.id.street);
+        final EditText etCity = (EditText) findViewById(R.id.city);
+        final EditText etState = (EditText) findViewById(R.id.state);
+        final EditText etZipCode = (EditText) findViewById(R.id.zip_code);
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
         final EditText etPassword = (EditText) findViewById(R.id.input_password);
         final Button btn_signup = (Button) findViewById(R.id.btn_signup);
@@ -213,6 +219,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             @Override
             public void onClick(View v) {
                 final String firstname = etFirstname.getText().toString();
+                final String lastname = etLastName.getText().toString();
+                final String phoneNumber = etPhone_number.getText().toString();
+                final String street = etStreet.getText().toString();
+                final String city = etCity.getText().toString();
+                final String state = etState.getText().toString();
+                final String zipCode = etZipCode.getText().toString();
                 final String email = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
 
@@ -237,7 +249,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 };
 
                 // The next 3 lines calls the @see RegisterRequest class.
-                RegisterRequest registerRequest = new RegisterRequest(firstname, email, password, responseListener);
+                RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, phoneNumber, street, city,
+                        state, zipCode, email, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(registerRequest);
             }
