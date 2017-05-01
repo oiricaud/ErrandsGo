@@ -14,7 +14,6 @@ public class LoginRequest extends StringRequest {
 
     // This line connects to my domain. Please @see Register class for more details
     private static final String REGISTER_REQUEST_URL = "http://www.narped.com/errandsgo/Login.php";
-    private static final String LOGOUT_URL = "http://www.narped.com/errandsgo/Logout.php";
     private Map<String, String> params;
 
     /**

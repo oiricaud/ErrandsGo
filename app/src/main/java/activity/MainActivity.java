@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import cs4330.utep.edu.errandsgo.R;
+import model.Customer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +30,6 @@ import java.util.List;
  * Created by oscarricaud on 4/10/17.
  */
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
-
     List<String> list;
     int[] imageId = {
             R.drawable.ic_stroller,
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "Are you often busy at times with work or school? You can hire a Baby sitter but that takes too much time" +
                     ". Why not use one of ErrandsGo services and get one of the ErrandRunners to take care of your " +
                     "loved one. You can view their ratings and pictures of the ErrandRunner! ",
-            " Why use uber when you can get a ride from your favorite errands app. Get a lift from point A to " +
+            "Why use uber when you can get a ride from your favorite errands app. Get a lift from point A to " +
                     "point B.",
             "Your time is more valuable than to clean your car. Get your car wash from your home. Begin a new " +
                     "productive life.",
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "The city keeps sending you notices that you gotta clean your yard, but you're busy too work. You are a " +
                     "tap away from getting someone else do it for you!",
     };
+    private Customer customer;
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
@@ -113,10 +115,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
+
+                    Log.w("jsonresponse ", String.valueOf(jsonResponse));
                     boolean success = jsonResponse.getBoolean("success");
                     if (success && (!isEmpty(etUsername) || !isEmpty(etPassword))) {
+                        customer = new Customer(jsonResponse); // load customer before launching the home view
                         toast("Success logon!");
                         launchHomeView();
+
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         toast("Failed, please try again");
@@ -128,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             }
         };
         LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
+
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(loginRequest);
 
