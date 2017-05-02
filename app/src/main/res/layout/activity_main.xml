@@ -56,8 +56,17 @@
                 app:fabSize="mini" app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
                 android:id="@+id/closePopup"
                 android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
-                app:backgroundTint="@android:color/holo_red_light"/>
+                app:backgroundTint="@android:color/holo_red_light" android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
 
+        <ProgressBar
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:indeterminate="true"
+                android:id="@+id/loadingCircle"
+                android:layout_alignParentBottom="false"
+                android:layout_centerHorizontal="false" android:layout_marginLeft="70dp"
+                android:layout_marginTop="150dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,7 +120,6 @@
                     android:layout_marginRight="20dp"
                     android:id="@+id/confirmation_popup"
                     android:layout_marginBottom="20dp" android:layout_marginTop="30dp">
-
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,7 +178,8 @@
                     <EditText android:id="@+id/input_email"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
-                              android:hint="Email" android:inputType="textEmailAddress"/>
+                              android:hint="Email" android:inputType="textEmailAddress"
+                    />
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Time Label -->
@@ -202,7 +211,7 @@
                         android:layout_alignEnd="@+id/details"
                         android:id="@+id/finalize"
                         android:backgroundTint="@color/md_light_blue_900"
-                        android:textColor="@color/material_drawer_background" android:layout_marginLeft="180dp"
+                        android:textColor="@color/material_drawer_background" android:layout_marginLeft="140dp"
                         android:layout_marginBottom="50dp"/>
             </LinearLayout>
         </ScrollView>

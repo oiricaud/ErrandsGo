@@ -2,6 +2,7 @@ package activity;
 
 import adapter.ErrandsNamesRecyclerViewAdapter;
 import adapter.ImageAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -58,16 +59,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "Yard Services",
     };
     private String[] imageDetails = {
-            "Are you often busy at times with work or school? You can hire a Baby sitter but that takes too much time" +
-                    ". Why not use one of ErrandsGo services and get one of the ErrandRunners to take care of your " +
-                    "loved one. You can view their ratings and pictures of the ErrandRunner! ",
+            "Do you need a break from your children. Why not use one of ErrandsGo " +
+                    "services and get one of the ErrandRunners to take care of your loved one.",
             "Why use uber when you can get a ride from your favorite errands app. Get a lift from point A to " +
                     "point B.",
             "Your time is more valuable than to clean your car. Get your car wash from your home. Begin a new " +
                     "productive life.",
             "Why clean your home when you can get someone else to do it for you. Spend your time on changing this " +
                     "world instead.",
-            "Are you tired after a long day of work? Why drive to get food restaurant when food can come to you",
+            "Are you tired after a long day of work? Why drive to get food when food can come to you",
             "Get someone to pick up your laundry from your home, work or wherever you are at and get it done for a " +
                     "couple of dollars!",
             "If you think about it, you eat the same foods so why waste time in line at a groceries store when you " +
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private RelativeLayout errandsDetailsPopUp;
     private LinearLayout confirmatationPopUp;
     private TextView titleClicked;
-
+    private ProgressBar loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final TextView details = (TextView) findViewById(R.id.details);
         final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
         final Button confirm = (Button) findViewById(R.id.confirm);
+        loading = (ProgressBar) findViewById(R.id.loadingCircle);
+        loading.setVisibility(View.GONE); // Hide loading
         grid = (GridView) findViewById(R.id.grid_view);
         grid.setVisibility(GridView.VISIBLE);
         closePopUp.bringToFront();
@@ -228,8 +230,41 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         TextView errandClicked = (TextView) findViewById(R.id.errand_title);
         errandClicked.setText(titleClicked.getText());
         titleClicked.setVisibility(TextView.INVISIBLE);
-
         autoFillForum(customer);
+        Button finalize = (Button) findViewById(R.id.finalize);
+        finalize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Confirm errand?")
+                        .setMessage("Are you sure you want to confirm this errand? Once an ErrandRunner approves your" +
+                                " request you will not be able to cancel the errand and you will be charged.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                loading.setVisibility(View.VISIBLE); // Show loading circle
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loading.setVisibility(View.GONE); // Hide loading circle
+                                    }
+                                }, 5500);
+                                paymentView();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_eye)
+                        .show();
+            }
+        });
+    }
+
+    private void paymentView() {
+        // Verify Credit Card here, skip for now
+        
     }
 
     private void autoFillForum(Customer customer) {
