@@ -9,7 +9,6 @@ import java.util.Map;
 
 
 /**
- *
  * Created by oscarricaud on 4/10/17.
  */
 public class RegisterRequest extends StringRequest {
@@ -21,7 +20,7 @@ public class RegisterRequest extends StringRequest {
     /**
      * This method sends a POST request to the database.
      *
-     * @param listener  The listener listens to the responses from the user.
+     * @param listener The listener listens to the responses from the user.
      */
 
     public RegisterRequest(String firstname, String lastname, String phonenumber, String street,

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * Created by oscarricaud on 4/10/17.
  */
 public class LoginRequest extends StringRequest {

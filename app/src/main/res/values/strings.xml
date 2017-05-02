@@ -26,12 +26,12 @@
     <string name="ErrandsGo">ErrandsGo</string>
     <string name="hello_world">helloworld</string>
     <string-array name="errand_names">
-        <item>Do Laundry</item>
-        <item>Walk Pet</item>
-        <item>BabySit</item>
-        <item>Carwash</item>
-        <item>Pick up person - Car Ride</item>
-        <item>Pick up Groceries</item>
-        <item>Pick up Fast Food</item>
+        <item>$5 Do Laundry</item>
+        <item>$10/hr Walk Pet</item>
+        <item>$20/hr BabySit</item>
+        <item>$20 Carwash</item>
+        <item>Varies Pick up person</item>
+        <item>$20 Pick up Groceries</item>
+        <item>$10 Pick up Fast Food</item>
     </string-array>
 </resources>

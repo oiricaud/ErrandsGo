@@ -31,7 +31,6 @@ import java.util.List;
 
 
 /**
- *
  * Created by oscarricaud on 4/10/17.
  */
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -218,10 +217,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     private void doErrands() {
+
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
+        mToolbar.setTitle("Pick an Errand to complete");
         setUpErrands();
 
         swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
@@ -319,7 +320,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         startActivity(intent);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -340,7 +340,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-
+        if (position == 0) {
+            Log.w("Here", view.toString());
+            launchHomeView();
+        }
     }
 
     /**

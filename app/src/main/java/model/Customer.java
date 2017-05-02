@@ -21,6 +21,7 @@ public class Customer {
     public Customer() {
         this.isLoggedIn = false;
     }
+
     public Customer(JSONObject jsonResponse) throws JSONException {
         this.firstName = jsonResponse.get("firstname").toString();
         this.lastName = jsonResponse.get("lastname").toString();
