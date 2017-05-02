@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 errandsDetailsPopUp.setVisibility(RelativeLayout.INVISIBLE);
                 confirmatationPopUp.setVisibility(LinearLayout.INVISIBLE);
                 grid.setVisibility(GridView.VISIBLE);
+                titleClicked.setVisibility(TextView.VISIBLE);
             }
         });
     }
@@ -238,10 +239,16 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final EditText etState = (EditText) findViewById(R.id.state);
         final EditText etZipCode = (EditText) findViewById(R.id.zip_code);
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
-        final EditText etPassword = (EditText) findViewById(R.id.input_password);
-        final Button btn_signup = (Button) findViewById(R.id.btn_signup);
-        final TextView link_login = (TextView) findViewById(R.id.link_login);
+
+        /* Auto load fields */
         etFirstname.setText(customer.getFirstName());
+        etLastName.setText(customer.getLastName());
+        etPhone_number.setText(customer.getPhonenumber());
+        etStreet.setText(customer.getStreet());
+        etCity.setText(customer.getCity());
+        etState.setText(customer.getState());
+        etZipCode.setText(customer.getZip());
+        etEmail.setText(customer.getEmail());
     }
 
     private void availableErrandsView() {
