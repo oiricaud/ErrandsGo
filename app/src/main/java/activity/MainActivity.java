@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private RelativeLayout popUpBackground;
     private RelativeLayout errandsDetailsPopUp;
     private LinearLayout confirmatationPopUp;
+    private TextView titleClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         errandsDetailsPopUp = (RelativeLayout) findViewById(R.id.errand_details);
         availableErrandsJobs = (RelativeLayout) findViewById(R.id.available_errands);
         confirmatationPopUp = (LinearLayout) findViewById(R.id.confirmation_popup);
-        final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
+        titleClicked = (TextView) findViewById(R.id.titleClicked);
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
         final TextView details = (TextView) findViewById(R.id.details);
         final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             public void onClick(View v) {
                 popUpBackground.setVisibility(RelativeLayout.INVISIBLE);
                 errandsDetailsPopUp.setVisibility(RelativeLayout.INVISIBLE);
+                confirmatationPopUp.setVisibility(LinearLayout.INVISIBLE);
                 grid.setVisibility(GridView.VISIBLE);
             }
         });
@@ -220,6 +222,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private void confirmView() {
         errandsDetailsPopUp.setVisibility(RelativeLayout.INVISIBLE);
         confirmatationPopUp.setVisibility(LinearLayout.VISIBLE);
+        TextView errandClicked = (TextView) findViewById(R.id.errand_title);
+        errandClicked.setText(titleClicked.getText());
+        titleClicked.setVisibility(TextView.INVISIBLE);
         autoFillForum(customer);
     }
 
@@ -366,6 +371,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public void onDrawerItemSelected(View view, int position) {
         if (position == 0) {
             Log.w("Home ", "Going home");
+            confirmatationPopUp.setVisibility(LinearLayout.INVISIBLE);
             drawerFragment.closeDrawers();
             launchHomeView();
         }

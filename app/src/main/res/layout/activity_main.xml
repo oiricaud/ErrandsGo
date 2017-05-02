@@ -56,7 +56,6 @@
                 app:fabSize="mini" app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
                 android:id="@+id/closePopup"
                 android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
-                android:layout_marginTop="2dp" android:layout_marginRight="10dp"
                 app:backgroundTint="@android:color/holo_red_light"/>
 
         <TextView
@@ -74,7 +73,7 @@
                 android:layout_height="wrap_content" android:layout_alignParentBottom="true"
                 android:layout_alignEnd="@+id/details" android:layout_marginBottom="41dp" android:id="@+id/confirm"
                 android:backgroundTint="@color/md_light_blue_900"
-                android:textColor="@color/material_drawer_background" android:layout_marginLeft="220dp"/>
+                android:textColor="@color/material_drawer_background" android:layout_marginLeft="180dp"/>
         <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -110,9 +109,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="100dp" android:id="@+id/confirmation_popup"
-                    android:layout_marginBottom="20dp">
+                    android:id="@+id/confirmation_popup"
+                    android:layout_marginBottom="20dp" android:layout_marginTop="52dp">
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:ems="10"
+                        android:id="@+id/errand_title" android:gravity="center"
+                        android:textSize="30sp" android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/material_drawer_dark_background" android:fontFamily="cursive"/>
 
                 <!--  First Name Label -->
                 <android.support.design.widget.TextInputLayout
