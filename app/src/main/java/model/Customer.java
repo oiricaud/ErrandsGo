@@ -16,7 +16,11 @@ public class Customer {
     private String zip;
     private String email;
     private String password;
+    private boolean isLoggedIn;
 
+    public Customer() {
+        this.isLoggedIn = false;
+    }
     public Customer(JSONObject jsonResponse) throws JSONException {
         this.firstName = jsonResponse.get("firstname").toString();
         this.lastName = jsonResponse.get("lastname").toString();
@@ -27,6 +31,7 @@ public class Customer {
         this.zip = jsonResponse.get("zipcode").toString();
         this.email = jsonResponse.get("email").toString();
         this.password = jsonResponse.get("password").toString();
+        this.isLoggedIn = true;
     }
 
     public String getFirstName() {
@@ -64,5 +69,9 @@ public class Customer {
 
     public String getZip() {
         return zip;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
     }
 }

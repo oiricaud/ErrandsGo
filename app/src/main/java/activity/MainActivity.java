@@ -1,13 +1,18 @@
 package activity;
 
+import adapter.ErrandsNamesRecyclerViewAdapter;
 import adapter.ImageAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +36,7 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
     List<String> list;
-    int[] imageId = {
+    private int[] imageId = {
             R.drawable.ic_stroller,
             R.drawable.ic_car,
             R.drawable.ic_carwash,
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             R.drawable.ic_pet,
             R.drawable.ic_fence,
     };
-    String[] imageTitle = {
+    private String[] imageTitle = {
             "Baby sit",
             "Car Ride",
             "Car Wash",
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "Walk pet",
             "Yard Services",
     };
-    String[] imageDetails = {
+    private String[] imageDetails = {
             "Are you often busy at times with work or school? You can hire a Baby sitter but that takes too much time" +
                     ". Why not use one of ErrandsGo services and get one of the ErrandRunners to take care of your " +
                     "loved one. You can view their ratings and pictures of the ErrandRunner! ",
@@ -73,9 +78,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "The city keeps sending you notices that you gotta clean your yard, but you're busy too work. You are a " +
                     "tap away from getting someone else do it for you!",
     };
-    private Customer customer;
+    private Customer customer = new Customer();
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+    private SwipeRefreshLayout swipeLayout;
+    private RecyclerView mRecyclerView;
+    private ErrandsNamesRecyclerViewAdapter mErrandNamesRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         TextView createAccount = (TextView) findViewById(R.id.link_signup);
         Button login = (Button) findViewById(R.id.btn_login);
-
         // If user decides to create an account, change view
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
      * This method verifies the users credentials and if they are correct, it launches the home menu.
      */
     private void userLogin() {
+
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
         final EditText etPassword = (EditText) findViewById(R.id.input_password);
         final String email = etEmail.getText().toString();
@@ -118,10 +126,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     Log.w("jsonResponse", jsonResponse.toString());
                     boolean success = jsonResponse.getBoolean("success");
                     if (success && (!isEmpty(etEmail) || !isEmpty(etPassword))) {
-                        customer = new Customer(jsonResponse); // load customer before launching the home view
                         toast("Success logon!");
                         launchHomeView();
-
+                        customer = new Customer(jsonResponse); // load customer before launching the home view
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         toast("Failed, please try again");
@@ -132,23 +139,26 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 }
             }
         };
+
         LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
 
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(loginRequest);
-
     }
 
     private void launchHomeView() {
         setContentView(R.layout.activity_main);
         final RelativeLayout popUpBackground = (RelativeLayout) findViewById(R.id.popupwithbackground);
         final RelativeLayout popUpBorder = (RelativeLayout) findViewById(R.id.popupblackborder);
+        final RelativeLayout do_errands = (RelativeLayout) findViewById(R.id.errands_do);
         final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
         final TextView details = (TextView) findViewById(R.id.details);
         final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
+        final GridView grid = (GridView) findViewById(R.id.grid_view);
         popUpBackground.setVisibility(RelativeLayout.GONE);
         popUpBorder.setVisibility(RelativeLayout.GONE);
+        do_errands.setVisibility(RelativeLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -158,11 +168,31 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+        drawerFragment.setDrawerListener(new FragmentDrawer.FragmentDrawerListener() {
+            @Override
+            public void onDrawerItemSelected(View view, int position) {
+                if (position == 0) {
+                    Log.w("Home ", "Going home");
+                    drawerFragment.closeDrawers();
+                }
+                if (position == 1) {
+                    Log.w("Errands ", "Going to do errands");
+                    drawerFragment.closeDrawers();
+                    do_errands.setVisibility(RelativeLayout.VISIBLE);
+                    grid.setVisibility(RelativeLayout.INVISIBLE);
+                    doErrands();
+                }
+                if (position == 2) {
+                    Log.w("Log out ", "logging out");
+                    restartActivity();
+                }
+            }
+        });
         mToolbar.setTitle("Pick an errand");
 
         /* Grid Images Listener */
         ImageAdapter adapter = new ImageAdapter(MainActivity.this, imageTitle, imageId);
-        final GridView grid = (GridView) findViewById(R.id.grid_view);
+
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -185,6 +215,33 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 grid.setVisibility(GridView.VISIBLE);
             }
         });
+    }
+
+    private void doErrands() {
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerview);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        setUpErrands();
+
+        swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setUpErrands();
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 2500);
+            }
+        });
+    }
+
+    private void setUpErrands() {
+        mErrandNamesRecyclerViewAdapter = new ErrandsNamesRecyclerViewAdapter(this);
+        mRecyclerView.setAdapter(mErrandNamesRecyclerViewAdapter);
     }
 
     /**
@@ -306,4 +363,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0;
     }
+
+
 }

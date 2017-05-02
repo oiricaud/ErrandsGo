@@ -2,16 +2,13 @@ package activity;
 
 import adapter.NavigationDrawerAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.*;
 import cs4330.utep.edu.errandsgo.R;
 import model.NavDrawerItem;
@@ -76,23 +73,7 @@ public class FragmentDrawer extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 drawerListener.onDrawerItemSelected(view, position);
-                if (position == 2) {
-                    Log.w("Log out ", "logging out");
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = getActivity().getIntent();
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            getActivity().overridePendingTransition(0, 0);
-                            getActivity().finish();
 
-                            getActivity().overridePendingTransition(0, 0);
-                            startActivity(intent);
-                        }
-                    });
-
-                }
-                mDrawerLayout.closeDrawer(containerView);
             }
 
             @Override
@@ -136,6 +117,11 @@ public class FragmentDrawer extends Fragment {
         });
 
     }
+
+    public void closeDrawers() {
+        mDrawerLayout.closeDrawers();
+    }
+
 
     public interface ClickListener {
         void onClick(View view, int position);
@@ -182,6 +168,7 @@ public class FragmentDrawer extends Fragment {
 
         @Override
         public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
         }
 
         @Override

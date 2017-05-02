@@ -25,5 +25,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ErrandsGo">ErrandsGo</string>
     <string name="hello_world">helloworld</string>
-
+    <string-array name="errand_names">
+        <item>Do Laundry</item>
+        <item>Walk Pet</item>
+        <item>BabySit</item>
+        <item>Carwash</item>
+        <item>Pick up person - Car Ride</item>
+        <item>Pick up Groceries</item>
+        <item>Pick up Fast Food</item>
+    </string-array>
 </resources>
