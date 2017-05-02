@@ -16,6 +16,8 @@ public class Customer {
     private String zip;
     private String email;
     private String password;
+    private String time;
+    private String price;
     private boolean isLoggedIn;
 
     public Customer() {
@@ -74,5 +76,21 @@ public class Customer {
 
     public boolean isLoggedIn() {
         return isLoggedIn;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

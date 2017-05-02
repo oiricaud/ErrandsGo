@@ -1,6 +1,5 @@
 package activity;
 
-import android.util.Log;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -27,15 +26,6 @@ public class RegisterRequest extends StringRequest {
                            String city, String state, String zipCode, String email, String password,
                            Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
-        Log.w("Firstname", firstname);
-        Log.w("lastname", lastname);
-        Log.w("phoneNumber", phonenumber);
-        Log.w("street", street);
-        Log.w("city", city);
-        Log.w("state", state);
-        Log.w("zipCode", zipCode);
-        Log.w("email", email);
-        Log.w("password", password);
 
         params = new HashMap<>();
         params.put("firstname", firstname);

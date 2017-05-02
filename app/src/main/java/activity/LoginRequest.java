@@ -18,7 +18,7 @@ public class LoginRequest extends StringRequest {
     /**
      * This method sends a POST request to the database.
      *
-     * @param username The username the user needs to be able to log in to their account.
+     * @param email The email the user needs to be able to log in to their account.
      * @param password The user's password.
      * @param listener The listener listens to the responses from the user.
      */

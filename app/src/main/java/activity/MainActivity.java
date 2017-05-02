@@ -90,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private LinearLayout confirmatationPopUp;
     private TextView titleClicked;
     private ProgressBar loading;
+    private EditText etTime;
+    private EditText etMoneyWillingToSpend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -264,7 +267,34 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private void paymentView() {
         // Verify Credit Card here, skip for now
-        
+
+        // Send data to database
+        customer.setTime(etTime.getText().toString());
+        customer.setPrice(etMoneyWillingToSpend.getText().toString());
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        toast("Errand requested");
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        toast("Failed, please internet connection error");
+                        builder.setMessage("Failed").setNegativeButton("Retry", null).create().show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        // The next 3 lines calls the @see RegisterRequest class.
+        ErrandRequest registerRequest = new ErrandRequest(customer, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(registerRequest);
     }
 
     private void autoFillForum(Customer customer) {
@@ -273,8 +303,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final EditText etPhone_number = (EditText) findViewById(R.id.phone_number);
         final EditText etAddress = (EditText) findViewById(R.id.street);
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
-        final EditText etTime = (EditText) findViewById(R.id.input_time);
-        final EditText etMoneyWillingToSpend = (EditText) findViewById(R.id.input_price);
+        etTime = (EditText) findViewById(R.id.input_time);
+        etMoneyWillingToSpend = (EditText) findViewById(R.id.input_price);
 
         /* Auto load fields */
         etName.setText(customer.getFirstName() + ", " + customer.getLastName());
