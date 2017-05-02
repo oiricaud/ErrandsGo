@@ -84,7 +84,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private RecyclerView mRecyclerView;
     private ErrandsNamesRecyclerViewAdapter mErrandNamesRecyclerViewAdapter;
     private GridView grid;
-    private RelativeLayout available_errands;
+    private RelativeLayout availableErrandsJobs;
+    private RelativeLayout popUpBackground;
+    private RelativeLayout errandsDetailsPopUp;
+    private LinearLayout confirmatationPopUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     if (success && (!isEmpty(etEmail) || !isEmpty(etPassword))) {
                         toast("Success logon!");
                         setContentView(R.layout.activity_main);
+
                         launchHomeView();
                         customer = new Customer(jsonResponse); // load customer before launching the home view
                     } else {
@@ -148,19 +153,25 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     private void launchHomeView() {
-        final RelativeLayout popUpBackground = (RelativeLayout) findViewById(R.id.popupwithbackground);
-        final RelativeLayout popUpBorder = (RelativeLayout) findViewById(R.id.popupblackborder);
-        available_errands = (RelativeLayout) findViewById(R.id.available_errands);
+        popUpBackground = (RelativeLayout) findViewById(R.id.popupwithbackground);
+        errandsDetailsPopUp = (RelativeLayout) findViewById(R.id.errand_details);
+        availableErrandsJobs = (RelativeLayout) findViewById(R.id.available_errands);
+        confirmatationPopUp = (LinearLayout) findViewById(R.id.confirmation_popup);
         final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
         final TextView details = (TextView) findViewById(R.id.details);
         final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
+        Button confirm = (Button) findViewById(R.id.confirm);
         grid = (GridView) findViewById(R.id.grid_view);
         grid.setVisibility(GridView.VISIBLE);
+        closePopUp.bringToFront();
         popUpBackground.setVisibility(RelativeLayout.GONE);
-        popUpBorder.setVisibility(RelativeLayout.GONE);
-        available_errands.setVisibility(RelativeLayout.GONE);
+        errandsDetailsPopUp.setVisibility(RelativeLayout.GONE);
+        availableErrandsJobs.setVisibility(RelativeLayout.GONE);
+        confirmatationPopUp.setVisibility(LinearLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        titleClicked.bringToFront();
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -168,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
         mToolbar.setTitle("Home");
 
         /* Grid Images Listener */
@@ -179,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 popUpBackground.setVisibility(RelativeLayout.VISIBLE);
-                popUpBorder.setVisibility(RelativeLayout.VISIBLE);
+                errandsDetailsPopUp.setVisibility(RelativeLayout.VISIBLE);
                 grid.setVisibility(GridView.INVISIBLE);
                 titleClicked.setText(imageTitle[position]);
                 details.setText(imageDetails[position]);
@@ -187,19 +199,49 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 imageIcon.bringToFront();
             }
         });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmView();
+            }
+        });
+
         closePopUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popUpBackground.setVisibility(RelativeLayout.INVISIBLE);
-                popUpBorder.setVisibility(RelativeLayout.INVISIBLE);
+                errandsDetailsPopUp.setVisibility(RelativeLayout.INVISIBLE);
                 grid.setVisibility(GridView.VISIBLE);
             }
         });
     }
 
+    private void confirmView() {
+        errandsDetailsPopUp.setVisibility(RelativeLayout.INVISIBLE);
+        confirmatationPopUp.setVisibility(LinearLayout.VISIBLE);
+        autoFillForum(customer);
+    }
+
+    private void autoFillForum(Customer customer) {
+        /* Prepare data */
+        final EditText etFirstname = (EditText) findViewById(R.id.first_name);
+        final EditText etLastName = (EditText) findViewById(R.id.last_name);
+        final EditText etPhone_number = (EditText) findViewById(R.id.phone_number);
+        final EditText etStreet = (EditText) findViewById(R.id.street);
+        final EditText etCity = (EditText) findViewById(R.id.city);
+        final EditText etState = (EditText) findViewById(R.id.state);
+        final EditText etZipCode = (EditText) findViewById(R.id.zip_code);
+        final EditText etEmail = (EditText) findViewById(R.id.input_email);
+        final EditText etPassword = (EditText) findViewById(R.id.input_password);
+        final Button btn_signup = (Button) findViewById(R.id.btn_signup);
+        final TextView link_login = (TextView) findViewById(R.id.link_login);
+        etFirstname.setText(customer.getFirstName());
+    }
+
     private void availableErrandsView() {
         grid.setVisibility(RelativeLayout.INVISIBLE);
-        available_errands.setVisibility(RelativeLayout.VISIBLE);
+        availableErrandsJobs.setVisibility(RelativeLayout.VISIBLE);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -234,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
      */
     private void createAccount() {
         setContentView(R.layout.activity_sign_up);
-          /* Prepare data */
+        /* Prepare data */
         final EditText etFirstname = (EditText) findViewById(R.id.first_name);
         final EditText etLastName = (EditText) findViewById(R.id.last_name);
         final EditText etPhone_number = (EditText) findViewById(R.id.phone_number);
@@ -307,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -316,8 +359,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
         return super.onOptionsItemSelected(item);
     }
 

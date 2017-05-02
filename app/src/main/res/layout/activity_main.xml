@@ -3,7 +3,8 @@
                                         xmlns:tools="http://schemas.android.com/tools"
                                         android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/blurrymountains">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -44,8 +45,10 @@
     <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:background="@drawable/blurrymountains"
-            android:id="@+id/popupwithbackground" android:layout_marginTop="50dp">
+            android:layout_height="match_parent"
+
+            android:id="@+id/popupwithbackground" android:layout_marginTop="60dp" android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" android:background="@drawable/background_border">
         <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,48 +59,174 @@
                 android:layout_marginTop="2dp" android:layout_marginRight="10dp"
                 app:backgroundTint="@android:color/holo_red_light"/>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/titleClicked" android:gravity="center"
+                android:layout_marginTop="52dp"
+                android:textSize="30sp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+                android:textColor="@color/material_drawer_dark_background" android:fontFamily="cursive"/>
+        <Button
+                android:text="Confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+                android:layout_alignEnd="@+id/details" android:layout_marginBottom="41dp" android:id="@+id/confirm"
+                android:backgroundTint="@color/md_light_blue_900"
+                android:textColor="@color/material_drawer_background" android:layout_marginLeft="220dp"/>
         <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" android:background="@drawable/background_border"
-                android:layout_marginTop="10dp" android:id="@+id/popupblackborder" android:layout_marginBottom="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp" android:id="@+id/errand_details" android:layout_marginBottom="20dp"
+        >
             <ImageView
                     android:id="@+id/imageIcon"
                     android:layout_alignParentLeft="false"
                     android:layout_marginLeft="50dp" android:layout_marginTop="300dp"
                     android:layout_width="75dp" android:layout_height="75dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/titleClicked" android:gravity="center"
-                    android:layout_marginTop="52dp"
-                    android:textSize="30sp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
-                    android:textColor="@color/material_drawer_dark_background" android:fontFamily="cursive"/>
 
             <TextView
                     android:text="TextView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_below="@+id/closePopup"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="110dp" android:id="@+id/details"
-                    android:layout_alignStart="@+id/titleClicked" android:layout_alignEnd="@+id/titleClicked"
+
                     android:layout_marginBottom="170dp" android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp" android:textSize="16sp" android:fontFamily="sans-serif"
                     android:textAlignment="viewStart"
                     android:textColor="@color/material_drawer_dark_selected"/>
-            <Button
-                    android:text="Confirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_alignParentBottom="true"
-                    android:layout_alignEnd="@+id/details" android:layout_marginBottom="41dp" android:id="@+id/confirm"
-                    android:backgroundTint="@color/md_light_blue_900"
-                    android:textColor="@color/material_drawer_background"/>
 
         </RelativeLayout>
+        <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:fitsSystemWindows="true">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="100dp" android:id="@+id/confirmation_popup"
+                    android:layout_marginBottom="20dp">
 
+
+                <!--  First Name Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/first_name"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:inputType="textCapWords"
+                              android:hint="First Name"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!--  Last Name Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/last_name"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:inputType="textCapWords"
+                              android:hint="Last Name"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!--  Phone Number  Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/phone_number"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="Phone Number" android:inputType="textCapWords"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!--  Street Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/street"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="Address" android:inputType="textCapWords"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!--  City Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/city"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="City" android:inputType="textCapWords"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!--  State Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/state"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="State" android:inputType="textCapWords"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!--  ZipCode Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/zip_code"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="Zip Code" android:inputType="textCapWords"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Email Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/input_email"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="Email" android:inputType="textEmailAddress"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Password Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/input_password"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="Password" android:inputType="textPassword"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
