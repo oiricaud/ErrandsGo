@@ -22,16 +22,14 @@
     <string name="title_home">Home</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ErrandsGo">ErrandsGo</string>
-    <string name="hello_world">helloworld</string>
     <string-array name="errand_names">
-        <item>$5 Do Laundry</item>
-        <item>$10/hr Walk Pet</item>
-        <item>$20/hr BabySit</item>
-        <item>$20 Carwash</item>
-        <item>Varies Pick up person</item>
-        <item>$20 Pick up Groceries</item>
-        <item>$10 Pick up Fast Food</item>
+        <item>Do Laundry for Jim, $5</item>
+        <item>Walk pet for Erin, $10</item>
+        <item>BabySit for Adriana, $20</item>
+        <item>Carwash for Mike, $20</item>
+        <item>Pick up Oscar, $10</item>
+        <item>Pick up Groceries for Adela, $20</item>
+        <item>Pick up Fast Food for Josh, $3</item>
     </string-array>
 </resources>

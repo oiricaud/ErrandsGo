@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private SwipeRefreshLayout swipeLayout;
     private RecyclerView mRecyclerView;
     private ErrandsNamesRecyclerViewAdapter mErrandNamesRecyclerViewAdapter;
-
+    private GridView grid;
+    private RelativeLayout available_errands;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     boolean success = jsonResponse.getBoolean("success");
                     if (success && (!isEmpty(etEmail) || !isEmpty(etPassword))) {
                         toast("Success logon!");
+                        setContentView(R.layout.activity_main);
                         launchHomeView();
                         customer = new Customer(jsonResponse); // load customer before launching the home view
                     } else {
@@ -146,18 +148,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     private void launchHomeView() {
-        setContentView(R.layout.activity_main);
         final RelativeLayout popUpBackground = (RelativeLayout) findViewById(R.id.popupwithbackground);
         final RelativeLayout popUpBorder = (RelativeLayout) findViewById(R.id.popupblackborder);
-        final RelativeLayout do_errands = (RelativeLayout) findViewById(R.id.errands_do);
+        available_errands = (RelativeLayout) findViewById(R.id.available_errands);
         final TextView titleClicked = (TextView) findViewById(R.id.titleClicked);
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
         final TextView details = (TextView) findViewById(R.id.details);
         final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
-        final GridView grid = (GridView) findViewById(R.id.grid_view);
+        grid = (GridView) findViewById(R.id.grid_view);
+        grid.setVisibility(GridView.VISIBLE);
         popUpBackground.setVisibility(RelativeLayout.GONE);
         popUpBorder.setVisibility(RelativeLayout.GONE);
-        do_errands.setVisibility(RelativeLayout.GONE);
+        available_errands.setVisibility(RelativeLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -166,28 +168,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
-
-        drawerFragment.setDrawerListener(new FragmentDrawer.FragmentDrawerListener() {
-            @Override
-            public void onDrawerItemSelected(View view, int position) {
-                if (position == 0) {
-                    Log.w("Home ", "Going home");
-                    drawerFragment.closeDrawers();
-                }
-                if (position == 1) {
-                    Log.w("Errands ", "Going to do errands");
-                    drawerFragment.closeDrawers();
-                    do_errands.setVisibility(RelativeLayout.VISIBLE);
-                    grid.setVisibility(RelativeLayout.INVISIBLE);
-                    doErrands();
-                }
-                if (position == 2) {
-                    Log.w("Log out ", "logging out");
-                    restartActivity();
-                }
-            }
-        });
-        mToolbar.setTitle("Pick an errand");
+        mToolbar.setTitle("Home");
 
         /* Grid Images Listener */
         ImageAdapter adapter = new ImageAdapter(MainActivity.this, imageTitle, imageId);
@@ -216,14 +197,16 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         });
     }
 
-    private void doErrands() {
-
+    private void availableErrandsView() {
+        grid.setVisibility(RelativeLayout.INVISIBLE);
+        available_errands.setVisibility(RelativeLayout.VISIBLE);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-        mToolbar.setTitle("Pick an Errand to complete");
+        mToolbar.setTitle("Available jobs");
         setUpErrands();
+
 
         swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -341,8 +324,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onDrawerItemSelected(View view, int position) {
         if (position == 0) {
-            Log.w("Here", view.toString());
+            Log.w("Home ", "Going home");
+            drawerFragment.closeDrawers();
             launchHomeView();
+        }
+        if (position == 1) {
+            Log.w("Errands ", "Going to do errands");
+            drawerFragment.closeDrawers();
+            availableErrandsView();
+        }
+        if (position == 2) {
+            Log.w("Log out ", "logging out");
+            restartActivity();
         }
     }
 
