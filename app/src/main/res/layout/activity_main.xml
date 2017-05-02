@@ -172,42 +172,6 @@
                               android:hint="Address" android:inputType="textCapWords"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <!--  City Label -->
-                <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/city"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:hint="City" android:inputType="textCapWords"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <!--  State Label -->
-                <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/state"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:hint="State" android:inputType="textCapWords"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <!--  ZipCode Label -->
-                <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/zip_code"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:hint="Zip Code" android:inputType="textCapWords"/>
-                </android.support.design.widget.TextInputLayout>
-
                 <!-- Email Label -->
                 <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -220,17 +184,37 @@
                               android:hint="Email" android:inputType="textEmailAddress"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <!-- Password Label -->
+                <!-- Time Label -->
                 <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/input_password"
+                    <EditText android:id="@+id/input_time"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
-                              android:hint="Password" android:inputType="textPassword"/>
+                              android:hint="Schedule a Time" android:inputType="textEmailAddress"/>
                 </android.support.design.widget.TextInputLayout>
+                <!--  Price Label -->
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/input_price"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:hint="How much $ are you willing to spend" android:inputType="numberDecimal"/>
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                        android:text="Finalize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@+id/details"
+                        android:id="@+id/finalize"
+                        android:backgroundTint="@color/md_light_blue_900"
+                        android:textColor="@color/material_drawer_background" android:layout_marginLeft="180dp"
+                        android:layout_marginBottom="50dp"/>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

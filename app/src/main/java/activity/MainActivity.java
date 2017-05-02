@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final FloatingActionButton closePopUp = (FloatingActionButton) findViewById(R.id.closePopup);
         final TextView details = (TextView) findViewById(R.id.details);
         final ImageView imageIcon = (ImageView) findViewById(R.id.imageIcon);
-        Button confirm = (Button) findViewById(R.id.confirm);
+        final Button confirm = (Button) findViewById(R.id.confirm);
         grid = (GridView) findViewById(R.id.grid_view);
         grid.setVisibility(GridView.VISIBLE);
         closePopUp.bringToFront();
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         availableErrandsJobs.setVisibility(RelativeLayout.GONE);
         confirmatationPopUp.setVisibility(LinearLayout.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        titleClicked.setVisibility(TextView.VISIBLE);
         titleClicked.bringToFront();
 
         setSupportActionBar(mToolbar);
@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             @Override
             public void onClick(View v) {
                 confirmView();
+                confirm.setVisibility(Button.INVISIBLE);
             }
         });
 
@@ -216,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 confirmatationPopUp.setVisibility(LinearLayout.INVISIBLE);
                 grid.setVisibility(GridView.VISIBLE);
                 titleClicked.setVisibility(TextView.VISIBLE);
+                confirm.setVisibility(Button.VISIBLE);
             }
         });
     }
@@ -226,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         TextView errandClicked = (TextView) findViewById(R.id.errand_title);
         errandClicked.setText(titleClicked.getText());
         titleClicked.setVisibility(TextView.INVISIBLE);
+
         autoFillForum(customer);
     }
 
@@ -234,21 +237,20 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final EditText etFirstname = (EditText) findViewById(R.id.first_name);
         final EditText etLastName = (EditText) findViewById(R.id.last_name);
         final EditText etPhone_number = (EditText) findViewById(R.id.phone_number);
-        final EditText etStreet = (EditText) findViewById(R.id.street);
-        final EditText etCity = (EditText) findViewById(R.id.city);
-        final EditText etState = (EditText) findViewById(R.id.state);
-        final EditText etZipCode = (EditText) findViewById(R.id.zip_code);
+        final EditText etAddress = (EditText) findViewById(R.id.street);
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
+        final EditText etTime = (EditText) findViewById(R.id.input_time);
+        final EditText etMoneyWillingToSpend = (EditText) findViewById(R.id.input_price);
 
         /* Auto load fields */
         etFirstname.setText(customer.getFirstName());
         etLastName.setText(customer.getLastName());
         etPhone_number.setText(customer.getPhonenumber());
-        etStreet.setText(customer.getStreet());
-        etCity.setText(customer.getCity());
-        etState.setText(customer.getState());
-        etZipCode.setText(customer.getZip());
+        etAddress.setText(customer.getStreet() + ", " + customer.getCity() + ", " + customer.getState());
         etEmail.setText(customer.getEmail());
+        etTime.setText("9:00am");
+        etMoneyWillingToSpend.setText("e.g $10.00");
+
     }
 
     private void availableErrandsView() {
