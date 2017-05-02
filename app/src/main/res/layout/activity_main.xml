@@ -110,7 +110,7 @@
                     android:layout_height="match_parent" android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/confirmation_popup"
-                    android:layout_marginBottom="20dp" android:layout_marginTop="52dp">
+                    android:layout_marginBottom="20dp" android:layout_marginTop="30dp">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -132,21 +132,10 @@
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
                               android:inputType="textCapWords"
-                              android:hint="First Name"/>
+                              android:hint="First Name, Last Name"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <!--  Last Name Label -->
-                <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/last_name"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:inputType="textCapWords"
-                              android:hint="Last Name"/>
-                </android.support.design.widget.TextInputLayout>
 
                 <!--  Phone Number  Label -->
                 <android.support.design.widget.TextInputLayout

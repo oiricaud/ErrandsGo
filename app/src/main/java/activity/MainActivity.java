@@ -234,8 +234,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private void autoFillForum(Customer customer) {
         /* Prepare data */
-        final EditText etFirstname = (EditText) findViewById(R.id.first_name);
-        final EditText etLastName = (EditText) findViewById(R.id.last_name);
+        final EditText etName = (EditText) findViewById(R.id.first_name);
         final EditText etPhone_number = (EditText) findViewById(R.id.phone_number);
         final EditText etAddress = (EditText) findViewById(R.id.street);
         final EditText etEmail = (EditText) findViewById(R.id.input_email);
@@ -243,8 +242,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         final EditText etMoneyWillingToSpend = (EditText) findViewById(R.id.input_price);
 
         /* Auto load fields */
-        etFirstname.setText(customer.getFirstName());
-        etLastName.setText(customer.getLastName());
+        etName.setText(customer.getFirstName() + ", " + customer.getLastName());
         etPhone_number.setText(customer.getPhonenumber());
         etAddress.setText(customer.getStreet() + ", " + customer.getCity() + ", " + customer.getState());
         etEmail.setText(customer.getEmail());
