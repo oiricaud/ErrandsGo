@@ -1,5 +1,8 @@
 package activity;
 
+import Communication.ErrandRequest;
+import Communication.LoginRequest;
+import Communication.RegisterRequest;
 import adapter.ErrandsNamesRecyclerViewAdapter;
 import adapter.ImageAdapter;
 import android.content.DialogInterface;
@@ -134,14 +137,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     Log.w("jsonResponse", jsonResponse.toString());
                     boolean success = jsonResponse.getBoolean("success");
                     if (success && (!isEmpty(etEmail) || !isEmpty(etPassword))) {
-                        toast("Success logon!");
+                        toast("Success logon!", 5000);
                         setContentView(R.layout.activity_main);
 
                         launchHomeView();
                         customer = new Customer(jsonResponse); // load customer before launching the home view
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        toast("Failed, please try again");
+                        toast("Failed, please try again", 5000);
                         builder.setMessage("Login Failed").setNegativeButton("Retry", null).create().show();
                     }
                 } catch (JSONException e) {
@@ -279,10 +282,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        toast("Errand requested");
+                        toast("Errand requested", 5000);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        toast("Failed, please internet connection error");
+                        toast("Failed, please internet connection error", 5000);
                         builder.setMessage("Failed").setNegativeButton("Retry", null).create().show();
                     }
                 } catch (JSONException e) {
@@ -295,6 +298,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         ErrandRequest registerRequest = new ErrandRequest(customer, responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(registerRequest);
+        toast("Success requesting an Errand", 10000);
+        launchHomeView();
     }
 
     private void autoFillForum(Customer customer) {
@@ -377,9 +382,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String firstname = etFirstname.getText().toString();
-                final String lastname = etLastName.getText().toString();
-                final String phonenumber = etPhone_number.getText().toString();
+                final String firstName = etFirstname.getText().toString();
+                final String lastName = etLastName.getText().toString();
+                final String phoneNumber = etPhone_number.getText().toString();
                 final String street = etStreet.getText().toString();
                 final String city = etCity.getText().toString();
                 final String state = etState.getText().toString();
@@ -394,11 +399,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                toast("Success creating account");
+                                toast("Success creating account", 5000);
                                 restartActivity();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                toast("Failed, please try again");
+                                toast("Failed, please try again", 5000);
                                 builder.setMessage("Register Failed").setNegativeButton("Retry", null).create().show();
                             }
                         } catch (JSONException e) {
@@ -408,8 +413,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 };
 
                 // The next 3 lines calls the @see RegisterRequest class.
-                RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, phonenumber, street, city, state,
-                        zipcode, email, password, responseListener);
+                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, phoneNumber, street, city,
+                        state, zipcode, email, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(registerRequest);
             }
@@ -461,10 +466,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     /**
      * Show a toast message.
      */
-    private void toast(String msg) {
+    private void toast(String msg, int lengthOfToast) {
         final Toast toast = Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
-        new CountDownTimer(500, 10000) {
+        new CountDownTimer(500, lengthOfToast) {
             public void onTick(long millisUntilFinished) {
                 toast.show();
             }
